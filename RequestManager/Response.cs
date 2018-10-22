@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using SWriter.RequestManager.Serialization;
+using SWriter.RequestManager.Translation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +13,7 @@ namespace SWriter.RequestManager
 
         public T ResultAs<T>(ContentType type = ContentType.JSON)
         {
-            ISerializer<T> serializer = SerializerFactory.CreateSerializer<T>(type);
+            IDeserializer<T> serializer = TranslatorFactory.GetTranslator<T>(type);
 
             return serializer.DeserializeFrom(Content);
         }

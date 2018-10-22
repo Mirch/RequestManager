@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SWriter.RequestManager.Serialization
+namespace SWriter.RequestManager.Translation
 {
-    public class JSONSerializer<T> : ISerializer<T>
+    public class JSONTranslator<T> : ITranslator<T>
     {
         public T DeserializeFrom(string content)
         {

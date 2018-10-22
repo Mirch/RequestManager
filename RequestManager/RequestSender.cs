@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using SWriter.RequestManager.Serialization;
+using SWriter.RequestManager.Translation;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -50,34 +50,34 @@ namespace SWriter.RequestManager
         public async Task<Response> GetAsync(string path)
         {
             var httpResponse = await _client.GetAsync(path);
-            
+
             var response = new Response() { Success = httpResponse.IsSuccessStatusCode, Content = await httpResponse.Content.ReadAsStringAsync() };
 
             return response;
         }
 
-        public async Task<Response> PostAsync(string path, object content)
+        public async Task<Response> PostAsync<T>(string path, T content, ContentType type = ContentType.JSON)
         {
-            StringContent postContent = new StringContent(JsonConvert.SerializeObject(content));
+            var postContent = SerializeToStringContent(content, type);
             var httpResponse = await _client.PostAsync(path, postContent);
             var response = new Response() { Success = httpResponse.IsSuccessStatusCode, Content = await httpResponse.Content.ReadAsStringAsync() };
 
             return response;
         }
 
-        public async Task<Response> PutAsync(string path, object content)
+        public async Task<Response> PutAsync<T>(string path, T content, ContentType type = ContentType.JSON)
         {
-            StringContent postContent = new StringContent(JsonConvert.SerializeObject(content));
-            var httpResponse = await _client.PutAsync(path, postContent);
+            var putContent = SerializeToStringContent(content, type);
+            var httpResponse = await _client.PutAsync(path, putContent);
             var response = new Response() { Success = httpResponse.IsSuccessStatusCode, Content = await httpResponse.Content.ReadAsStringAsync() };
 
             return response;
         }
 
-        public async Task<Response> PatchAsync(string path, object content)
+        public async Task<Response> PatchAsync<T>(string path, T content, ContentType type = ContentType.JSON)
         {
-            StringContent postContent = new StringContent(JsonConvert.SerializeObject(content));
-            var httpResponse = await _client.PatchAsync(path, postContent);
+            var patchContent = SerializeToStringContent(content, type);
+            var httpResponse = await _client.PatchAsync(path, patchContent);
             var response = new Response() { Success = httpResponse.IsSuccessStatusCode, Content = await httpResponse.Content.ReadAsStringAsync() };
 
             return response;
@@ -103,9 +103,16 @@ namespace SWriter.RequestManager
 
             var httpResponse = await _client.SendAsync(request);
 
-            var response = new Response() { Success = httpResponse.IsSuccessStatusCode, Content = await httpResponse.Content.ReadAsStringAsync()};
+            var response = new Response() { Success = httpResponse.IsSuccessStatusCode, Content = await httpResponse.Content.ReadAsStringAsync() };
 
             return response;
+        }
+
+        private StringContent SerializeToStringContent<T>(T content, ContentType type)
+        {
+            return TranslatorFactory.GetTranslator<T>(type)
+                                    .SerializeFrom(content)
+                                    .ToStringContent();
         }
     }
 }
