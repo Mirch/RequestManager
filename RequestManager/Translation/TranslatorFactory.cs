@@ -22,6 +22,9 @@ namespace SWriter.RequestManager.Translation
                 case ContentType.JSON:
                     translator = new JSONTranslator<T>();
                     break;
+                case ContentType.XML:
+                    translator = new XMLTranslator<T>();
+                    break;
                 default:
                     translator = new JSONTranslator<T>();
                     break;
