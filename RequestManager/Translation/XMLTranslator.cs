@@ -38,3 +38,4 @@ namespace SWriter.RequestManager.Translation
             return sb.ToString();
         }
     }
+}
