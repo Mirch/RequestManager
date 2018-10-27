@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SWriter.RequestManager.Translation;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace SWriter.RequestManager
 
     public class RequestSender
     {
-        private static Dictionary<string, HttpClient> _CLIENTS;
+        private static ConcurrentDictionary<string, HttpClient> _CLIENTS = new ConcurrentDictionary<string, HttpClient>();
 
         private HttpClient _client;
 
@@ -27,7 +28,7 @@ namespace SWriter.RequestManager
             {
                 var newClient = new HttpClient();
                 newClient.BaseAddress = new Uri(baseURI);
-                _CLIENTS.Add(baseURI, newClient);
+                _CLIENTS.GetOrAdd(baseURI, newClient);
                 _client = newClient;
             }
             else
@@ -41,7 +42,7 @@ namespace SWriter.RequestManager
             var value = _CLIENTS.GetValueOrDefault(client.BaseAddress.AbsoluteUri);
             if (value == null)
             {
-                _CLIENTS.Add(client.BaseAddress.AbsoluteUri, client);
+                _CLIENTS.GetOrAdd(client.BaseAddress.AbsoluteUri, client);
                 _client = client;
             }
             _client = client;
@@ -112,7 +113,7 @@ namespace SWriter.RequestManager
         {
             return TranslatorFactory.GetTranslator<T>(type)
                                     .SerializeFrom(content)
-                                    .ToStringContent();
+                                    .ToStringContent(type);
         }
     }
 }
