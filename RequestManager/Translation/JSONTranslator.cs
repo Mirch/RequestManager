@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SWriter.RequestManager.Translation
 {
-    public class JSONTranslator<T> : ITranslator<T>
+    public class JSONTranslator<T> : ITranslator<T> where T : new()
     {
         public T DeserializeFrom(string content)
         {

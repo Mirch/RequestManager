@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SWriter.RequestManager.Translation
 {
-    public class XMLTranslator<T> : ITranslator<T>
+    public class XMLTranslator<T> : ITranslator<T> where T : new()
     {
         private System.Xml.Serialization.XmlSerializer _serializer;
 

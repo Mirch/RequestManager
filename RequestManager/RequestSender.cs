@@ -57,7 +57,7 @@ namespace SWriter.RequestManager
             return response;
         }
 
-        public async Task<Response> PostAsync<T>(string path, T content, ContentType type = ContentType.JSON)
+        public async Task<Response> PostAsync<T>(string path, T content, ContentType type = ContentType.JSON) where T : new()
         {
             var postContent = SerializeToStringContent(content, type);
             var httpResponse = await _client.PostAsync(path, postContent);
@@ -66,7 +66,7 @@ namespace SWriter.RequestManager
             return response;
         }
 
-        public async Task<Response> PutAsync<T>(string path, T content, ContentType type = ContentType.JSON)
+        public async Task<Response> PutAsync<T>(string path, T content, ContentType type = ContentType.JSON) where T : new()
         {
             var putContent = SerializeToStringContent(content, type);
             var httpResponse = await _client.PutAsync(path, putContent);
@@ -75,7 +75,7 @@ namespace SWriter.RequestManager
             return response;
         }
 
-        public async Task<Response> PatchAsync<T>(string path, T content, ContentType type = ContentType.JSON)
+        public async Task<Response> PatchAsync<T>(string path, T content, ContentType type = ContentType.JSON) where T : new()
         {
             var patchContent = SerializeToStringContent(content, type);
             var httpResponse = await _client.PatchAsync(path, patchContent);
@@ -109,7 +109,7 @@ namespace SWriter.RequestManager
             return response;
         }
 
-        private StringContent SerializeToStringContent<T>(T content, ContentType type)
+        private StringContent SerializeToStringContent<T>(T content, ContentType type) where T : new()
         {
             return TranslatorFactory.GetTranslator<T>(type)
                                     .SerializeFrom(content)

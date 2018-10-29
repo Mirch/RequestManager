@@ -11,7 +11,7 @@ namespace SWriter.RequestManager.Translation
 
         private TranslatorFactory() { }
 
-        public static ITranslator<T> GetTranslator<T>(ContentType type)
+        public static ITranslator<T> GetTranslator<T>(ContentType type) where T : new()
         {
             ITranslator<T> translator = _TRANSLATORS.GetValueOrDefault(type) as ITranslator<T>;
 
@@ -24,6 +24,9 @@ namespace SWriter.RequestManager.Translation
                     break;
                 case ContentType.XML:
                     translator = new XMLTranslator<T>();
+                    break;
+                case ContentType.FORM:
+                    translator = new FormTranslator<T>();
                     break;
                 default:
                     translator = new JSONTranslator<T>();

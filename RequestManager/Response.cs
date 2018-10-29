@@ -11,7 +11,7 @@ namespace SWriter.RequestManager
         public bool Success { get; set; }
         public string Content { get; set; }
 
-        public T ResultAs<T>(ContentType type = ContentType.JSON)
+        public T ResultAs<T>(ContentType type = ContentType.JSON) where T : new()
         {
             IDeserializer<T> serializer = TranslatorFactory.GetTranslator<T>(type);
 
