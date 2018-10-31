@@ -12,13 +12,19 @@ namespace SWriter.RequestManager.Translation
         public static StringContent ToStringContent(this string str, ContentType contentType)
         {
             string content = "";
-            switch(contentType)
+            switch (contentType)
             {
                 case ContentType.JSON:
                     content = "application/json";
                     break;
                 case ContentType.XML:
                     content = "application/xml";
+                    break;
+                case ContentType.FORM:
+                    content = "application/x-www-form-urlencoded";
+                    break;
+                default:
+                    content = "application/json";
                     break;
             }
             return new StringContent(str, Encoding.UTF8, content);
