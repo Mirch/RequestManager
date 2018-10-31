@@ -11,7 +11,7 @@ The library can send GET, POST, PUT, PATCH and DELETE requests with JSON, XML or
 
 ## How to use?
 
-#Sending a request and reading the response
+### Sending a request and reading the response
 
 ```
 var postAndGetJsonResponse = (await _requestSender.PostAsync("/api/test/json",
