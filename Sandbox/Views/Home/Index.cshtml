@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div>
+    <h3>GET JSON response</h3>
+    @((ViewData["getJsonResponse"] as Person).Name)
+
+    <h3>GET XML response</h3>
+    @((ViewData["getXmlResponse"] as Person).Name)
+
+    <h3>POST and GET JSON response</h3>
+    @((ViewData["postAndGetJson"] as Person).Name)
+
+    <h3>POST and GET XML response</h3>
+    @((ViewData["postAndGetXml"] as Person).Name)
+
+    <h3>POST FORM and GET JSON response</h3>
+    @((ViewData["postFormGetJson"] as Person).Name)
+
+
+</div>
