@@ -5,7 +5,7 @@ using System.Text;
 using System.Linq;
 using SWriter.RequestManager.Helpers;
 
-namespace SWriter.RequestManager.Translation
+namespace SWriter.RequestManager.Helpers
 {
     public static class TranslatorExtensions
     {

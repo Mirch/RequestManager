@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SWriter.RequestManager.Translation;
+using SWriter.RequestManager.Helpers;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
