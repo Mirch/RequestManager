@@ -1,6 +1,8 @@
 ## Request Manager
 RequestManager is a .NET Core library that provides helper methods to easily send requests in different formats and deserialize the response into objects. 
 
+You can install the library from [NuGet](https://www.nuget.org/packages/StreamWriter.RequestManager/).
+
 ## Build status
 [![Build Status](https://dev.azure.com/StreamWriter/RequestManager/_apis/build/status/StreamWriter.RequestManager)](https://dev.azure.com/StreamWriter/RequestManager/_build/latest?definitionId=1)
 
